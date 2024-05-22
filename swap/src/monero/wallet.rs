@@ -266,7 +266,7 @@ impl Wallet {
         const GET_HEIGHT_INTERVAL: Duration = Duration::from_secs(5);
         const RETRY_INTERVAL: Duration = Duration::from_secs(2);
 
-        let inner = self.inner.lock().await;
+        let inner = self.inner.try_lock()?;
 
         // Cloning this is relatively cheap because reqwest::Client is a wrapper around an Arc
         let inner_clone = inner.clone();
